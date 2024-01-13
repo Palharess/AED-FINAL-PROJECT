@@ -23,7 +23,7 @@ Voo cria_voo(Aviao plane){
     nova->lista = cria_lista();
     for(int i = 0; i < 20; i++){
         for(int j = 0; j < 4; j++){
-            nova->lugares[i]
+            nova->lugares[i][j] = 0;
         }
     }
     return nova;
@@ -54,10 +54,23 @@ void mostra_passegeiro(Voo voo){
     }
 }
 
-
+// 1 = ocupado
 int verifica_assento(Voo voo, int linha, int coluna){
-    if(voo->qtd == 0) return 1;
+    if(voo->qtd == 0) return 0;
     else{
-        
+        if(voo->lugares[linha][coluna] == 1){
+            return 1;
+        }
+    }
+}
+void mostra_assento(Voo voo){
+    char fileira = 'a';
+    printf("  0 1 2 3\n");
+    for(int i = 0; i < 20; i++){
+        printf("%c ", fileira + i);
+        for(int j = 0; j < 4; j++){
+            printf("%d ", voo->lugares[i][j]);
+        }
+        printf("\n");
     }
 }

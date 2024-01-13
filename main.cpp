@@ -9,9 +9,11 @@ int main(){
     escolher_assento(pessoa, 1 , 2);
     Aviao plane = cria_aviao("AirBus A320", "11/09/2001","0/0/0","Twin Towers");
     Voo voo = cria_voo(plane);
-
+    
     adiciona_passageiro(pessoa,voo);
-    mostra_passegeiro(voo);
+    mostra_assento(voo);
+
+
 
     return 0;
 }
