@@ -47,6 +47,7 @@ void insere_lista(L_LIST lista, Pessoa individuo){
         return;
     }
     insere_node(lista->head, new_node);
+    lista->qtd++;
 }
 
 // void mostra_node(L_NODE node){
@@ -99,4 +100,17 @@ L_NODE pega_head(L_LIST lista){
 
 Pessoa pega_pessoa(L_NODE node){
     return node->individuo;
+}
+
+int quantidade_passageiros(L_LIST lista){
+    return lista->qtd;
+}
+
+Pessoa retorna_by_id(L_NODE lista, int id, int indice){
+    if(indice == id){
+        printf("f:%s\n", pega_nome(pega_pessoa(lista)));
+        return pega_pessoa(lista);
+    }
+    indice += 1;
+    pega_nome_na_lista(lista->next, id, indice);
 }
