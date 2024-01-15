@@ -11,12 +11,11 @@ struct pessoa{
     char rg[10];
     char sexo[30];
     int linha, coluna;
-    int tem;
 };
 
 
 
-Pessoa cria_pessoa(char * cpf, char * nome, char * nascimento, char * rg, char * sexo, int tem){
+Pessoa cria_pessoa(char * cpf, char * nome, char * nascimento, char * rg, char * sexo){
     Pessoa nova = NULL;
     nova = (Pessoa) calloc(1, sizeof(struct pessoa));
     strcpy(nova->cpf, cpf);
@@ -24,7 +23,6 @@ Pessoa cria_pessoa(char * cpf, char * nome, char * nascimento, char * rg, char *
     strcpy(nova->nascimento, nascimento);
     strcpy(nova->rg, rg);
     strcpy(nova->sexo, sexo);
-    nova->tem = tem;
     return nova;
 }
 

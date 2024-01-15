@@ -16,6 +16,7 @@ bool free_lista(L_LIST lista);
 int verifica_disponibilidade(L_LIST lista, int linha, int coluna);
 char * pega_nome_na_lista(L_NODE lista, int qtd, int indice);
 L_NODE pega_head(L_LIST lista);
+Pessoa pega_pessoa(L_NODE node);
 
 
 

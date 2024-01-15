@@ -3,7 +3,9 @@
 #include <string.h>
 #include "menu.hpp"
 
-void cadastra_pessoa(){
+
+
+void cadastra_pessoa(L_LIST todos_passageiros){
     char cpf[12];
     char nome[30];
     char nascimento[12];
@@ -21,17 +23,23 @@ void cadastra_pessoa(){
     scanf("%s%*c", rg);
     printf("Sexo: ");
     scanf("%s%*c", sexo);
-    printf("%s \n%s \n%s\n %s\n %s\n", nome,cpf,nascimento,rg,sexo);
-    // Pessoa pessoa = cria_pessoa()
+    Pessoa pessoa = cria_pessoa(cpf,nome,nascimento,rg,sexo);
+    insere_lista(todos_passageiros, pessoa);
+    printf("Voce foi cadastrado!\n");
+    // printf("%s\n", pega_nome(pessoa));
+    // printf("%s\n", pega_nome(pega_pessoa(pega_head(todos_passageiros))));
 }
 
 void mostra_menu(){
+    L_LIST todos_passageiros = cria_lista();
+    Pessoa atual;
     int escolha;
     printf("RESERVE SUAS PASSAGENS\n");
     printf("Ja possui cadastro? (Escreva 1 para sim ou 2 para nao)\n");
     scanf("%d%*c", &escolha);
     if(escolha == 2){
-        cadastra_pessoa();
+        cadastra_pessoa(todos_passageiros);
+        
     }
     printf("DIGITE N-N PARA ESCOLHER O QUE FAZER\n");
     printf("1) COMPRE SUA PASSAGEM\n");

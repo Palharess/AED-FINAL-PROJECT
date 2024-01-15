@@ -96,3 +96,7 @@ char * pega_nome_na_lista(L_NODE node, int qtd, int indice){
 L_NODE pega_head(L_LIST lista){
     return lista->head;
 }
+
+Pessoa pega_pessoa(L_NODE node){
+    return node->individuo;
+}

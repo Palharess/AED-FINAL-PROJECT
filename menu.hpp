@@ -5,8 +5,8 @@
 
 
 void mostra_menu();
-void cadastra_pessoa();
+void cadastra_pessoa(L_LIST todos_passageiros);
 
-void compra_passagem();
+void compra_passagem(L_LIST todos_passageiros);
 
 #endif

@@ -4,7 +4,7 @@
 typedef struct pessoa * Pessoa;
 
 
-Pessoa cria_pessoa(char * cpf, char * nome, char * nascimento, char * rg, char * sexo, int tem);
+Pessoa cria_pessoa(char * cpf, char * nome, char * nascimento, char * rg, char * sexo);
 
 int pega_linha(Pessoa pessoa);
 int pega_coluna(Pessoa pessoa);
