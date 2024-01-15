@@ -7,7 +7,7 @@
 struct pessoa{
     char cpf[12];
     char nome[30];
-    char nascimento[10];
+    char nascimento[12];
     char rg[10];
     char sexo[30];
     int linha, coluna;

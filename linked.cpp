@@ -74,9 +74,14 @@ bool free_lista(L_LIST lista){
     return true;
 }
 
+//passa um linha e uma coluna e verifica se o o individuo passado bate com os parametros passados
+
 int verifica_disponibilidade(L_LIST lista, int linha, int coluna){
     if(pega_linha(lista->head->individuo) == linha && pega_coluna(lista->head->individuo) == coluna){
         return 1;
+    }
+    else{
+        return 0;
     }
 }
 
