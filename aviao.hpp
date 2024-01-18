@@ -3,9 +3,10 @@
 
 typedef struct aviao * Aviao;
 
-Aviao cria_aviao(char * modelo, char * ida, char * volta, char * aeroporto);
-
-
-
+Aviao cria_aviao(char * modelo, char * data_ida, char * destino, char * aeroporto);
+char * pega_cidade(Aviao plane);
+char * pega_data_ida(Aviao plane);
+char * pega_modelo(Aviao plane);
+char * pega_aeroporto(Aviao plane);
 
 #endif

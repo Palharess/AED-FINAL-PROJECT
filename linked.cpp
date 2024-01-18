@@ -50,17 +50,17 @@ void insere_lista(L_LIST lista, Pessoa individuo){
     lista->qtd++;
 }
 
-// void mostra_node(L_NODE node){
-//     if(node == NULL) return;
-//     printf("% ", node->ind);
-//     mostra_node(node->next);
-// }
+void mostra_node(L_NODE node){
+    if(node == NULL) return;
+    printf("%s ", pega_nome(node->individuo));
+    mostra_node(node->next);
+}
 
-// void mostra_lista(L_LIST lista){
-//     printf("[");
-//     if(lista->head != NULL) mostra_node(lista->head);
-//     printf("]\n");
-// }
+void mostra_lista(L_LIST lista){
+    printf("[");
+    if(lista->head != NULL) mostra_node(lista->head);
+    printf("]\n");
+}
 
 void free_node(L_NODE node){
     free(node);
@@ -108,9 +108,12 @@ int quantidade_passageiros(L_LIST lista){
 
 Pessoa retorna_by_id(L_NODE lista, int id, int indice){
     if(indice == id){
-        printf("f:%s\n", pega_nome(pega_pessoa(lista)));
         return pega_pessoa(lista);
     }
     indice += 1;
     pega_nome_na_lista(lista->next, id, indice);
+}
+
+L_NODE pega_next(L_NODE node){
+    return node->next;
 }

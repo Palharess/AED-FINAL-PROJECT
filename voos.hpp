@@ -11,7 +11,7 @@ void mostra_assento(Voo voo);
 void adiciona_passageiro(Pessoa passageiro, Voo voo);
 void mostra_passegeiro(Voo voo);
 int verifica_assento(Voo voo, int linha, int coluna);
-
+Aviao pega_aviao(Voo voo);
 
 
 #endif
