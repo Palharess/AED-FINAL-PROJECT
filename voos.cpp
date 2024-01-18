@@ -63,7 +63,7 @@ int verifica_assento(Voo voo, int linha, int coluna){
 void mostra_assento(Voo voo){
     char fileira = 'a';
     printf("  1 2 3 4\n");
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 20; i++){
         printf("%c ", fileira + i);
         for(int j = 0; j < 4; j++){
             printf("%d ", voo->lugares[i][j]);

@@ -70,7 +70,7 @@ Voo identifica_voo(Voo * voos, char * cidade){
 
 
 void mostra_voos(Voo * voos){
-    printf("Voos disponíveis:\n");
+    printf("Voos disponiveis:\n");
     for(int i = 0; i < 3;i++){
         printf("%d-%s\n",i + 1,pega_cidade(pega_aviao(voos[i])));
         printf("Data da ida: %s\n",pega_data_ida(pega_aviao(voos[i])));
@@ -93,23 +93,27 @@ void compra_passagem(Pessoa atual, Voo * voos){
     escolhido = identifica_voo(voos, destino);
     system("cls");
     printf("O voo escolhido foi: %s\n", pega_cidade(pega_aviao(escolhido)));
-    printf("Os assentos disponiveis sao:\n");
+    printf("Assentos:\n");
     mostra_assento(escolhido);
     printf("Escolha um assento (ex: g4): ");
-    scanf("%c%d", &fileira, &coluna);
+    scanf("%c%d%*c", &fileira, &coluna);
     coluna--;
     fila = (fileira - 'a');
     while(1){
         if(verifica_assento(escolhido, fila,coluna) == 0){
             break;
         }
-        printf("Esse assento está ocupado, escolha outro: ");
-        scanf("%c%d", &fileira, &coluna);
+        printf("Esse assento esta ocupado, escolha outro: ");
+        scanf("%c%d%*c", &fileira, &coluna);
+        coluna--;
         fila = (fileira - 'a');
     }
+    escolher_assento(atual, fila, coluna);
+
+
+    adiciona_passageiro(atual, escolhido);
     
-    
-    Sleep(100000);
+    Sleep(500);
 }
 
 void mostra_menu(){
@@ -136,6 +140,9 @@ void mostra_menu(){
         if(escolha == 1){
             compra_passagem(atual,voos);
         }
-    }
 
+
+
+    }
+    
 }
