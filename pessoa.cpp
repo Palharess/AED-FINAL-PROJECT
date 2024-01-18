@@ -23,6 +23,8 @@ Pessoa cria_pessoa(char * cpf, char * nome, char * nascimento, char * rg, char *
     strcpy(nova->nascimento, nascimento);
     strcpy(nova->rg, rg);
     strcpy(nova->sexo, sexo);
+    nova->linha = -1;
+    nova->coluna = -1;
     return nova;
 }
 

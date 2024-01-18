@@ -3,13 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "voos.hpp"
-
+#include <string.h>
 
 
 struct voo{
     Aviao plane;
-    int lugares[20][4];
+    int lugares[10][4];
     int qtd;
+    int restantes;
     L_LIST lista;
 };
 
@@ -18,7 +19,8 @@ Voo cria_voo(Aviao plane){
     nova = (Voo) calloc(1, sizeof(struct voo));
     nova->plane = plane;
     nova->lista = cria_lista();
-    for(int i = 0; i < 20; i++){
+    nova->restantes = 40;
+    for(int i = 0; i < 10; i++){
         for(int j = 0; j < 4; j++){
             nova->lugares[i][j] = 0;
         }
@@ -33,11 +35,12 @@ void adiciona_passageiro(Pessoa passageiro, Voo voo){
     voo->lugares[linha][coluna] = 1;
     insere_lista(voo->lista, passageiro);
     voo->qtd++;
+    voo->restantes--;
     
 }   
 
 void mostra_passegeiro(Voo voo){
-    for(int i = 0; i < 20; i++){
+    for(int i = 0; i < 10; i++){
         for(int j = 0; j < 4; j++){
             if(voo->lugares[i][j] == 1){
                 for(int k = 0; k < voo->qtd; k++){
@@ -63,7 +66,7 @@ int verifica_assento(Voo voo, int linha, int coluna){
 void mostra_assento(Voo voo){
     char fileira = 'a';
     printf("  1 2 3 4\n");
-    for(int i = 0; i < 20; i++){
+    for(int i = 0; i < 10; i++){
         printf("%c ", fileira + i);
         for(int j = 0; j < 4; j++){
             printf("%d ", voo->lugares[i][j]);
@@ -74,4 +77,24 @@ void mostra_assento(Voo voo){
 
 Aviao pega_aviao(Voo voo){
     return voo->plane;
+}
+
+int pega_restantes(Voo voo){
+    return voo->restantes;
+}
+
+Voo acha_voo_nome(Voo * voos, char * nome){
+    Pessoa teste;
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < voos[i]->qtd; j++){
+            teste = retorna_by_id(pega_head(voos[i]->lista), j, 0);
+            if(strcmp(pega_nome(teste), nome) == 0){
+                return voos[i];
+            }
+        }
+    }
+}
+
+void altere_assento(Pessoa atual, Voo voo){
+    mostra_assento(voo);
 }

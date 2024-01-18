@@ -60,13 +60,14 @@ Voo * cria_todos_voos(){
     return voos;
 }
 
-Voo identifica_voo(Voo * voos, char * cidade){
+Voo identifica_voo_cidade(Voo * voos, char * cidade){
     for(int i = 0; i < 3; i++){
         if(strcmp(pega_cidade(pega_aviao(voos[i])), cidade) == 0){
             return voos[i];
         }
     }
 }
+
 
 
 void mostra_voos(Voo * voos){
@@ -76,6 +77,7 @@ void mostra_voos(Voo * voos){
         printf("Data da ida: %s\n",pega_data_ida(pega_aviao(voos[i])));
         printf("Aeroporto: %s\n",pega_aeroporto(pega_aviao(voos[i])));
         printf("Modelo do Aviao: %s\n",pega_modelo(pega_aviao(voos[i])));
+        printf("Lugares Restantes: %d\n", pega_restantes(voos[i]));
         printf("\n");
     }
 }
@@ -90,7 +92,7 @@ void compra_passagem(Pessoa atual, Voo * voos){
     mostra_voos(voos);
     printf("Digite a cidade destino do voo escolhido: ");
     scanf("%[^\n]%*c", destino);
-    escolhido = identifica_voo(voos, destino);
+    escolhido = identifica_voo_cidade(voos, destino);
     system("cls");
     printf("O voo escolhido foi: %s\n", pega_cidade(pega_aviao(escolhido)));
     printf("Assentos:\n");
@@ -109,17 +111,20 @@ void compra_passagem(Pessoa atual, Voo * voos){
         fila = (fileira - 'a');
     }
     escolher_assento(atual, fila, coluna);
-
-
     adiciona_passageiro(atual, escolhido);
-    
+    system("cls");
     Sleep(500);
+}
+
+void altere_assento(){
+    
 }
 
 void mostra_menu(){
     L_LIST todos_passageiros = cria_lista();
     Voo * voos = cria_todos_voos();
     Pessoa atual;
+    Voo achou_voo;
     int escolha;
     while(1){
         printf("RESERVE SUAS PASSAGENS\n");
@@ -132,16 +137,42 @@ void mostra_menu(){
         else{
             atual = acha_pessoa(todos_passageiros);
         }
+        while(1){
+            
+            printf("BEM VINDO %s!\n", pega_nome(atual));
+            printf("DIGITE N-N PARA ESCOLHER O QUE FAZER\n");
+            printf("1) COMPRE SUA PASSAGEM\n");
+            printf("2) VISUALIZE SUA VIAGEM\n");
+            printf("3) ALTERE SEU ASSENTO\n");
 
-        printf("BEM VINDO %s!\n", pega_nome(atual));
-        printf("DIGITE N-N PARA ESCOLHER O QUE FAZER\n");
-        printf("1) COMPRE SUA PASSAGEM\n");
-        scanf("%d%*c", &escolha);
-        if(escolha == 1){
-            compra_passagem(atual,voos);
+            printf("4) LOGOUT\n");
+            scanf("%d%*c", &escolha);
+            if(escolha == 1 && pega_linha(atual) != -1 && pega_coluna(atual) != -1){
+                system("cls");
+                printf("Voce ja possui uma passagem!\n");
+            }
+            else if(escolha == 1){
+                compra_passagem(atual,voos);
+            }
+            else if(escolha == 2){
+                if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
+                    achou_voo = acha_voo_nome(voos, pega_nome(atual));
+                    printf("Destino:%s\n",pega_cidade(pega_aviao(achou_voo)));
+                    printf("Data da ida: %s\n",pega_data_ida(pega_aviao(achou_voo)));
+                    printf("Aeroporto: %s\n",pega_aeroporto(pega_aviao(achou_voo)));
+                    printf("Modelo do Aviao: %s\n",pega_modelo(pega_aviao(achou_voo)));
+                    printf("\n");
+                }
+                else{
+                    system("cls");
+                    printf("Voce nao possui uma passagem\n");
+                }
+            }
+            else if(escolha == 3){
+
+            }
+            else if(escolha == 4) break;
         }
-
-
 
     }
     
