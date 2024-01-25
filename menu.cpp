@@ -113,12 +113,11 @@ void compra_passagem(Pessoa atual, Voo * voos){
     escolher_assento(atual, fila, coluna);
     adiciona_passageiro(atual, escolhido);
     system("cls");
+    printf("Passagem comprada!");
     Sleep(500);
 }
 
-void altere_assento(){
-    
-}
+
 
 void mostra_menu(){
     L_LIST todos_passageiros = cria_lista();
@@ -144,8 +143,9 @@ void mostra_menu(){
             printf("1) COMPRE SUA PASSAGEM\n");
             printf("2) VISUALIZE SUA VIAGEM\n");
             printf("3) ALTERE SEU ASSENTO\n");
+            printf("4) CANCELE SUA VIAGEM\n");
 
-            printf("4) LOGOUT\n");
+            printf("5) LOGOUT\n");
             scanf("%d%*c", &escolha);
             if(escolha == 1 && pega_linha(atual) != -1 && pega_coluna(atual) != -1){
                 system("cls");
@@ -161,6 +161,7 @@ void mostra_menu(){
                     printf("Data da ida: %s\n",pega_data_ida(pega_aviao(achou_voo)));
                     printf("Aeroporto: %s\n",pega_aeroporto(pega_aviao(achou_voo)));
                     printf("Modelo do Aviao: %s\n",pega_modelo(pega_aviao(achou_voo)));
+                    printf("Poltrona: %c%d\n",'a' + pega_linha(atual),pega_coluna(atual));
                     printf("\n");
                 }
                 else{
@@ -169,9 +170,14 @@ void mostra_menu(){
                 }
             }
             else if(escolha == 3){
+                if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
+
+                }
+            }
+            else if(escolha == 4){
 
             }
-            else if(escolha == 4) break;
+            else if(escolha == 5) break;
         }
 
     }
