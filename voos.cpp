@@ -84,11 +84,9 @@ int pega_restantes(Voo voo){
 }
 
 Voo acha_voo_nome(Voo * voos, char * nome){
-    Pessoa teste;
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < voos[i]->qtd; j++){
-            teste = retorna_by_id(pega_head(voos[i]->lista), j, 0);
-            if(strcmp(pega_nome(teste), nome) == 0){
+            if(strcmp(pega_cidade(pega_aviao(voos[i])), nome) == 0){
                 return voos[i];
             }
         }

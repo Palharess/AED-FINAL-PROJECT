@@ -11,6 +11,7 @@ struct pessoa{
     char rg[10];
     char sexo[30];
     int linha, coluna;
+    char voo[30];
 };
 
 
@@ -44,5 +45,10 @@ void escolher_assento(Pessoa pessoa, int linha, int coluna){
 }
 
 
+void escolher_voo(Pessoa pessoa, char * voo){
+    strcpy(pessoa->voo, voo);
+}
 
-
+char * pega_voo(Pessoa pessoa){
+    return pessoa->voo;
+}

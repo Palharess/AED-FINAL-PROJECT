@@ -12,6 +12,7 @@ char * pega_nome(Pessoa pessoa);
 void escolher_assento(Pessoa pessoa, int linha, int coluna);
 Pessoa reserva(Pessoa passageiro);
 int verifica_disponibilidade(int matriz);
-
+void escolher_voo(Pessoa pessoa, char * voo);
+char * pega_voo(Pessoa pessoa);
 
 #endif
