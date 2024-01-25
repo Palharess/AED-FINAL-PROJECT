@@ -181,8 +181,14 @@ void mostra_menu(){
                 }
             }
             else if(escolha == 4){
-                
-            }
+                if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
+                    cancela_passagem(atual, acha_voo_nome(voos, pega_voo(atual)));
+                }
+                else{
+                    system("cls");
+                    printf("Voce nao possui uma passagem\n");
+                }
+            }   
             else if(escolha == 5) break;
         }
 

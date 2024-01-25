@@ -11,6 +11,7 @@ void insere_node(L_NODE head, L_NODE inserir);
 void insere_lista(L_LIST lista, Pessoa individuo);
 void mostra_node(L_NODE node);
 void mostra_lista(L_LIST lista);
+void remove_lista_por_nome(L_LIST lista, char * nome);
 void free_node(L_NODE node);
 bool free_lista(L_LIST lista);
 int verifica_disponibilidade(L_LIST lista, int linha, int coluna);

@@ -151,6 +151,8 @@ void cancela_passagem(Pessoa atual, Voo voo){
     scanf("%c%*c", &resposta);
     if(resposta == 'S'){
         voo->lugares[linha][coluna] = 0;
-
+        voo->restantes++;
+        remove_lista_por_nome(voo->lista, pega_nome(atual));
+        escolher_assento(atual, -1,-1);
     }
 }

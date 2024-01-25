@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "linked.hpp"
 #include "voos.hpp"
 
@@ -58,7 +59,7 @@ void mostra_node(L_NODE node){
 
 void mostra_lista(L_LIST lista){
     printf("[");
-    if(lista->head != NULL) mostra_node(lista->head);
+    if(lista->head != NULL && lista->qtd != 0) mostra_node(lista->head);
     printf("]\n");
 }
 
@@ -116,4 +117,45 @@ Pessoa retorna_by_id(L_NODE lista, int id, int indice){
 
 L_NODE pega_next(L_NODE node){
     return node->next;
+}
+
+void remove_lista_por_nome(L_LIST lista, char * nome){
+    L_NODE removido = lista->head;
+    L_NODE achou = lista->head;
+    while(1){
+        if(strcmp(nome, pega_nome(removido->individuo)) == 0){
+            break;
+        }
+        removido = removido->next;
+    }
+    if(lista->qtd == 1){
+        lista->head == NULL;
+        free(removido);
+    }
+    else if(removido->next == NULL){
+        while(1){
+            if(achou->next->next == NULL){
+                break;
+            }
+            achou = achou->next;
+        }
+        achou->next = NULL;
+        free(removido);
+    }
+    else if(strcmp(pega_nome(lista->head->individuo), pega_nome(removido->individuo)) == 0){
+        lista->head = lista->head->next;
+        free(removido);
+    }
+    else{
+        while(1){
+            if(strcmp(pega_nome(achou->next->individuo),pega_nome(removido->individuo)) == 0){
+                break;
+            }
+            achou = achou->next;
+        } 
+        achou->next = removido->next;
+        free(removido);
+    }
+    lista->qtd--;
+    printf("PASSAGEM CANCELADA!");
 }
