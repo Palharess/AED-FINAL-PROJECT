@@ -93,6 +93,64 @@ Voo acha_voo_nome(Voo * voos, char * nome){
     }
 }
 
+//retira a pessoa do assento antigo e coloca no novo
+void troca_assento(Pessoa atual, Voo voo, int antigo_l, int antigo_c){
+    int linha = pega_linha(atual);
+    int coluna = pega_coluna(atual);
+    voo->lugares[linha][coluna] = 1;
+    voo->lugares[antigo_l][antigo_c] = 0;
+}
+
+
 void altere_assento(Pessoa atual, Voo voo){
+    system("cls");
+    int coluna;
+    char fileira;
+    char resposta;
+    int fila;
+    printf("Seu assento atual: %c%d\n",'a' + pega_linha(atual),pega_coluna(atual) + 1);
     mostra_assento(voo);
+
+    while(1){
+        printf("Escolha um assento (ex: g4): ");
+        scanf("%c%d%*c", &fileira, &coluna);
+        coluna--;
+        fila = (fileira - 'a');
+        while(1){
+            if(verifica_assento(voo, fila,coluna) == 0){
+                break;
+            }
+            printf("Esse assento esta ocupado, escolha outro: ");
+            scanf("%c%d%*c", &fileira, &coluna);
+            coluna--;
+            fila = (fileira - 'a');
+        }
+        printf("Deseja trocar o assento %c%d por %c%d? (S/N) ", 'a' + pega_linha(atual),pega_coluna(atual) + 1, fileira,coluna + 1);
+        scanf("%c%*c", &resposta);
+        if(resposta == 'S'){
+            int antigo_c, antigo_l;
+            antigo_l = pega_linha(atual);
+            antigo_c = pega_coluna(atual);
+            escolher_assento(atual, fila, coluna);
+            troca_assento(atual, voo, antigo_l, antigo_c);
+            break;
+        }
+
+    }
+}
+void cancela_passagem(Pessoa atual, Voo voo){
+    char resposta;
+    int linha = pega_linha(atual), coluna = pega_coluna(atual);
+    printf("Destino:%s\n",pega_cidade(pega_aviao(voo)));
+    printf("Data da ida: %s\n",pega_data_ida(pega_aviao(voo)));
+    printf("Aeroporto: %s\n",pega_aeroporto(pega_aviao(voo)));
+    printf("Modelo do Aviao: %s\n",pega_modelo(pega_aviao(voo)));
+    printf("Poltrona: %c%d\n",'a' + pega_linha(atual),pega_coluna(atual) + 1);
+    printf("\n");
+    printf("Deseja cancelar sua passagem? (S/N) ");
+    scanf("%c%*c", &resposta);
+    if(resposta == 'S'){
+        voo->lugares[linha][coluna] = 0;
+
+    }
 }

@@ -173,11 +173,15 @@ void mostra_menu(){
             }
             else if(escolha == 3){
                 if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
-                    
+                    altere_assento(atual,acha_voo_nome(voos, pega_voo(atual)));
+                }
+                else{
+                    system("cls");
+                    printf("Voce nao possui uma passagem\n");                
                 }
             }
             else if(escolha == 4){
-
+                
             }
             else if(escolha == 5) break;
         }

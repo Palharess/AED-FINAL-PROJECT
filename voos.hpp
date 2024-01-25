@@ -16,4 +16,7 @@ int pega_restantes(Voo voo);
 Voo acha_voo_nome(Voo * voos, char * nome);
 void altere_assento(Pessoa atual, Voo voo);
 
+void troca_assento(Pessoa atual, Voo voo, int antigo_l, int antigo_c);
+void cancela_passagem(Pessoa atual, Voo voo);
+
 #endif
