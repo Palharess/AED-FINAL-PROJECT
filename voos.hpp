@@ -18,5 +18,6 @@ void altere_assento(Pessoa atual, Voo voo);
 
 void troca_assento(Pessoa atual, Voo voo, int antigo_l, int antigo_c);
 void cancela_passagem(Pessoa atual, Voo voo);
+L_LIST pega_lista(Voo voo);
 
 #endif

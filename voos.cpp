@@ -156,3 +156,7 @@ void cancela_passagem(Pessoa atual, Voo voo){
         escolher_assento(atual, -1,-1);
     }
 }
+
+L_LIST pega_lista(Voo voo){
+    return voo->lista;
+}

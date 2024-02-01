@@ -119,7 +119,15 @@ void compra_passagem(Pessoa atual, Voo * voos){
     Sleep(500);
 }
 
-
+void end(Voo * voos, L_LIST todos_passageiros){
+    for(int i = 0; i < 3; i++){
+        free(pega_aviao(voos[i]));
+        free_lista(pega_lista(voos[i]));
+        free(voos[i]);
+    }
+    free(voos);
+    free_lista(todos_passageiros);
+}
 
 void mostra_menu(){
     L_LIST todos_passageiros = cria_lista();
@@ -128,68 +136,109 @@ void mostra_menu(){
     Voo achou_voo;
     int escolha;
     while(1){
-        printf("RESERVE SUAS PASSAGENS\n");
-        printf("Ja possui cadastro? (Escreva 1 para sim ou 2 para nao)\n");
+        printf("BEM VINDO!!\n");
+        printf("1) Reservar passagens\n");
+        printf("2) Ver os passageiros\n");
         scanf("%d%*c", &escolha);
-        system("cls");
-        if(escolha == 2){
-            atual = cadastra_pessoa(todos_passageiros);
-        }
-        else{
-            atual = acha_pessoa(todos_passageiros);
-        }
-        while(1){
-            
-            printf("BEM VINDO %s!\n", pega_nome(atual));
-            printf("DIGITE N-N PARA ESCOLHER O QUE FAZER\n");
-            printf("1) COMPRE SUA PASSAGEM\n");
-            printf("2) VISUALIZE SUA VIAGEM\n");
-            printf("3) ALTERE SEU ASSENTO\n");
-            printf("4) CANCELE SUA VIAGEM\n");
+        if(escolha == 1){
+            printf("RESERVE SUAS PASSAGENS\n");
 
-            printf("5) LOGOUT\n");
+            printf("Ja possui cadastro? (Escreva 1 para sim ou 2 para nao)\n");
+            printf("END (3)\n");
             scanf("%d%*c", &escolha);
-            if(escolha == 1 && pega_linha(atual) != -1 && pega_coluna(atual) != -1){
-                system("cls");
-                printf("Voce ja possui uma passagem!\n");
+            system("cls");
+            if(escolha == 2){
+                atual = cadastra_pessoa(todos_passageiros);
             }
-            else if(escolha == 1){
-                compra_passagem(atual,voos);
+            else if (escolha == 1){
+                atual = acha_pessoa(todos_passageiros);
             }
-            else if(escolha == 2){
-                if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
-                    achou_voo = acha_voo_nome(voos, pega_voo(atual));
-                    printf("Destino:%s\n",pega_cidade(pega_aviao(achou_voo)));
-                    printf("Data da ida: %s\n",pega_data_ida(pega_aviao(achou_voo)));
-                    printf("Aeroporto: %s\n",pega_aeroporto(pega_aviao(achou_voo)));
-                    printf("Modelo do Aviao: %s\n",pega_modelo(pega_aviao(achou_voo)));
-                    printf("Poltrona: %c%d\n",'a' + pega_linha(atual),pega_coluna(atual) + 1);
-                    printf("\n");
-                }
-                else{
+            else{
+                end(voos,todos_passageiros);
+            }
+            while(1){
+                
+                printf("BEM VINDO %s!\n", pega_nome(atual));
+                printf("DIGITE N-N PARA ESCOLHER O QUE FAZER\n");
+                printf("1) COMPRE SUA PASSAGEM\n");
+                printf("2) VISUALIZE SUA VIAGEM\n");
+                printf("3) ALTERE SEU ASSENTO\n");
+                printf("4) CANCELE SUA VIAGEM\n");
+
+                printf("5) LOGOUT\n");
+                scanf("%d%*c", &escolha);
+                if(escolha == 1 && pega_linha(atual) != -1 && pega_coluna(atual) != -1){
                     system("cls");
-                    printf("Voce nao possui uma passagem\n");
+                    printf("Voce ja possui uma passagem!\n");
+                }
+                else if(escolha == 1){
+                    compra_passagem(atual,voos);
+                }
+                else if(escolha == 2){
+                    if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
+                        achou_voo = acha_voo_nome(voos, pega_voo(atual));
+                        printf("Destino:%s\n",pega_cidade(pega_aviao(achou_voo)));
+                        printf("Data da ida: %s\n",pega_data_ida(pega_aviao(achou_voo)));
+                        printf("Aeroporto: %s\n",pega_aeroporto(pega_aviao(achou_voo)));
+                        printf("Modelo do Aviao: %s\n",pega_modelo(pega_aviao(achou_voo)));
+                        printf("Poltrona: %c%d\n",'a' + pega_linha(atual),pega_coluna(atual) + 1);
+                        printf("\n");
+                    }
+                    else{
+                        system("cls");
+                        printf("Voce nao possui uma passagem\n");
+                    }
+                }
+                else if(escolha == 3){
+                    if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
+                        altere_assento(atual,acha_voo_nome(voos, pega_voo(atual)));
+                    }
+                    else{
+                        system("cls");
+                        printf("Voce nao possui uma passagem\n");                
+                    }
+                }
+                else if(escolha == 4){
+                    if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
+                        cancela_passagem(atual, acha_voo_nome(voos, pega_voo(atual)));
+                    }
+                    else{
+                        system("cls");
+                        printf("Voce nao possui uma passagem\n");
+                    }
+                }  
+                else if(escolha == 5) break;
+            }
+        }
+        
+        else{
+            if(quantidade_passageiros(todos_passageiros) > 0){
+                Voo atual;
+                L_LIST passageiros;
+                for(int i = 0; i < 3; i++){
+                    atual = voos[i];
+                    passageiros = pega_lista(voos[i]);
+                    if(quantidade_passageiros(pega_lista(atual)) == 0){
+                        printf("O VOO PARA %s NAO POSSUI PASSAGEIROS\n", pega_cidade(pega_aviao(atual)));
+                    }
+                    else{
+                        for(int j = 0; j < quantidade_passageiros(pega_lista(atual)); j++){
+                            printf("%s:\n", pega_cidade(pega_aviao(atual)));
+                            printf("Passageiro %d:\n", j);
+                            printf("Nome: %s\n", );
+                            printf("Cpf: %s\n");
+                            printf("Nascimento: %s\n");
+                            printf("Rg: %s\n");
+                            printf("Sexo: %s\n");
+                        }
+                    }
+
                 }
             }
-            else if(escolha == 3){
-                if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
-                    altere_assento(atual,acha_voo_nome(voos, pega_voo(atual)));
-                }
-                else{
-                    system("cls");
-                    printf("Voce nao possui uma passagem\n");                
-                }
+            else{
+                printf("SEM PASSAGEIROS NO MOMENTO\n");
+
             }
-            else if(escolha == 4){
-                if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
-                    cancela_passagem(atual, acha_voo_nome(voos, pega_voo(atual)));
-                }
-                else{
-                    system("cls");
-                    printf("Voce nao possui uma passagem\n");
-                }
-            }   
-            else if(escolha == 5) break;
         }
 
     }
