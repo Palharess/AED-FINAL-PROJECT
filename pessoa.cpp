@@ -52,3 +52,16 @@ void escolher_voo(Pessoa pessoa, char * voo){
 char * pega_voo(Pessoa pessoa){
     return pessoa->voo;
 }
+
+char * pega_cpf(Pessoa pessoa){
+    return pessoa->cpf;
+}
+char * pega_sexo(Pessoa pessoa){
+    return pessoa->sexo;
+}
+char * pega_nascimento(Pessoa pessoa){
+    return pessoa->nascimento;
+}
+char * pega_rg(Pessoa pessoa){
+    return pessoa->rg;
+}

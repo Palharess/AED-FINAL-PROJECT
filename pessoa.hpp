@@ -9,6 +9,11 @@ Pessoa cria_pessoa(char * cpf, char * nome, char * nascimento, char * rg, char *
 int pega_linha(Pessoa pessoa);
 int pega_coluna(Pessoa pessoa);
 char * pega_nome(Pessoa pessoa);
+char * pega_cpf(Pessoa pessoa);
+char * pega_sexo(Pessoa pessoa);
+char * pega_nascimento(Pessoa pessoa);
+char * pega_rg(Pessoa pessoa);
+
 void escolher_assento(Pessoa pessoa, int linha, int coluna);
 Pessoa reserva(Pessoa passageiro);
 int verifica_disponibilidade(int matriz);

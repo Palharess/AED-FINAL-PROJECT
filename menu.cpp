@@ -215,21 +215,31 @@ void mostra_menu(){
             if(quantidade_passageiros(todos_passageiros) > 0){
                 Voo atual;
                 L_LIST passageiros;
+                Pessoa pessoa;
                 for(int i = 0; i < 3; i++){
                     atual = voos[i];
                     passageiros = pega_lista(voos[i]);
                     if(quantidade_passageiros(pega_lista(atual)) == 0){
-                        printf("O VOO PARA %s NAO POSSUI PASSAGEIROS\n", pega_cidade(pega_aviao(atual)));
+                        printf("O VOO PARA %s NAO POSSUI PASSAGEIROS\n\n", pega_cidade(pega_aviao(atual)));
                     }
                     else{
+                        L_NODE node = pega_head(passageiros);
+                        int achou;
                         for(int j = 0; j < quantidade_passageiros(pega_lista(atual)); j++){
+                            achou = j;
+                            while(achou > 0){
+                                node = pega_next(node);
+                                achou--;
+                            }
+                            pessoa = pega_pessoa(node);
+                            printf("t: %s %s\n", pega_sexo(pessoa), pega_rg(pessoa));
                             printf("%s:\n", pega_cidade(pega_aviao(atual)));
                             printf("Passageiro %d:\n", j);
-                            printf("Nome: %s\n", );
-                            printf("Cpf: %s\n");
-                            printf("Nascimento: %s\n");
-                            printf("Rg: %s\n");
-                            printf("Sexo: %s\n");
+                            printf("Nome: %s\n", pega_nome(pessoa));
+                            printf("Cpf: %s\n", pega_cpf(pessoa));
+                            printf("Nascimento: %s\n", pega_nascimento(pessoa));
+                            printf("Rg: %s\n", pega_rg(pessoa));
+                            printf("Sexo: %s\n", pega_sexo(pessoa));
                         }
                     }
 
