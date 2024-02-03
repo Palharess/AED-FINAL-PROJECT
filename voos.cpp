@@ -135,6 +135,42 @@ void altere_assento(Pessoa atual, Voo voo){
             antigo_c = pega_coluna(atual);
             escolher_assento(atual, fila, coluna);
             troca_assento(atual, voo, antigo_l, antigo_c);
+            FILE *arquivo;
+            FILE *temp;
+            char l[MAX_TAMANHO_LINHA];
+            char *palavras[MAX_PALAVRAS];
+            int numPalavras;
+
+            arquivo = fopen("arquivo.txt", "r");
+            temp = fopen("temp.txt", "w");
+
+            while (fgets(l, sizeof(l), arquivo) != NULL) {
+                l[strcspn(l, "\n")] = '\0';
+                numPalavras = 0;
+                char *token = strtok(l, ",");
+
+                while (token != NULL && numPalavras < MAX_PALAVRAS) {
+                    palavras[numPalavras] = strdup(token);  
+                    numPalavras++;
+                    token = strtok(NULL, ",");
+                }
+                //nome,cpf,rg,n,s,v,l,c
+                if(strcmp(pega_nome(atual), palavras[0]) == 0){
+                    
+                    fprintf(temp, "%s,%s,%s,%s,%s,%s,%d,%d\n", palavras[0], palavras[1], palavras[2], palavras[3]
+                        , palavras[4], palavras[5],  fila, coluna);
+                }
+                else{
+                    int l = atoi(palavras[6]),c = atoi(palavras[7]);
+                    fprintf(temp, "%s,%s,%s,%s,%s,%s,%d,%d\n", palavras[0], palavras[1], palavras[2], palavras[3]
+                        , palavras[4], palavras[5],  l, c);
+                }
+
+            }
+            fclose(arquivo);
+            fclose(temp);
+            remove("arquivo.txt");
+            rename("temp.txt", "arquivo.txt");
             system("cls");
             printf("ASSENTO TROCADO!\n");
             break;
@@ -185,8 +221,6 @@ void cancela_passagem(Pessoa atual, Voo voo, L_LIST todos_passageiros){
             }
 
         }
-        mostra_lista(voo->lista);
-        mostra_lista(todos_passageiros);
         fclose(arquivo);
         fclose(temp);
         remove("arquivo.txt");

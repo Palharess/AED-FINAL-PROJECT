@@ -285,6 +285,7 @@ void mostra_menu(){
                     passageiros = pega_lista(voos[i]);
                     if(quantidade_passageiros(pega_lista(atual)) == 0){
                         printf("O VOO PARA %s NAO POSSUI PASSAGEIROS\n\n", pega_cidade(pega_aviao(atual)));
+                        
                     }
                     else{
                         L_NODE node = pega_head(passageiros);
