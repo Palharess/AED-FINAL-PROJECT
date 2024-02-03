@@ -133,6 +133,8 @@ void altere_assento(Pessoa atual, Voo voo){
             antigo_c = pega_coluna(atual);
             escolher_assento(atual, fila, coluna);
             troca_assento(atual, voo, antigo_l, antigo_c);
+            system("cls");
+            printf("ASSENTO TROCADO!\n");
             break;
         }
 

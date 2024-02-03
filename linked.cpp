@@ -157,5 +157,6 @@ void remove_lista_por_nome(L_LIST lista, char * nome){
         free(removido);
     }
     lista->qtd--;
-    printf("PASSAGEM CANCELADA!");
+    system("cls");
+    printf("PASSAGEM CANCELADA!\n");
 }

@@ -114,7 +114,7 @@ void compra_passagem(Pessoa atual, Voo * voos){
     escolher_voo(atual, pega_cidade(pega_aviao(escolhido)));
     adiciona_passageiro(atual, escolhido);
     system("cls");
-    printf("Passagem comprada!");
+    printf("Passagem comprada!\n");
 
     Sleep(500);
 }
@@ -130,17 +130,20 @@ void end(Voo * voos, L_LIST todos_passageiros){
 }
 
 void mostra_menu(){
+    int vez = 0;
     L_LIST todos_passageiros = cria_lista();
     Voo * voos = cria_todos_voos();
     Pessoa atual;
     Voo achou_voo;
     int escolha;
     while(1){
+        if(vez == 0) system("cls");
         printf("BEM VINDO!!\n");
         printf("1) Reservar passagens\n");
         printf("2) Ver os passageiros\n");
         scanf("%d%*c", &escolha);
         if(escolha == 1){
+            system("cls");
             printf("RESERVE SUAS PASSAGENS\n");
 
             printf("Ja possui cadastro? (Escreva 1 para sim ou 2 para nao)\n");
@@ -175,6 +178,7 @@ void mostra_menu(){
                     compra_passagem(atual,voos);
                 }
                 else if(escolha == 2){
+                    system("cls");
                     if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
                         achou_voo = acha_voo_nome(voos, pega_voo(atual));
                         printf("Destino:%s\n",pega_cidade(pega_aviao(achou_voo)));
@@ -183,6 +187,8 @@ void mostra_menu(){
                         printf("Modelo do Aviao: %s\n",pega_modelo(pega_aviao(achou_voo)));
                         printf("Poltrona: %c%d\n",'a' + pega_linha(atual),pega_coluna(atual) + 1);
                         printf("\n");
+                        Sleep(10000);
+                        system("cls");
                     }
                     else{
                         system("cls");
@@ -190,6 +196,7 @@ void mostra_menu(){
                     }
                 }
                 else if(escolha == 3){
+                    system("cls");
                     if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
                         altere_assento(atual,acha_voo_nome(voos, pega_voo(atual)));
                     }
@@ -199,6 +206,7 @@ void mostra_menu(){
                     }
                 }
                 else if(escolha == 4){
+                    system("cls");
                     if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
                         cancela_passagem(atual, acha_voo_nome(voos, pega_voo(atual)));
                     }
@@ -207,12 +215,16 @@ void mostra_menu(){
                         printf("Voce nao possui uma passagem\n");
                     }
                 }  
-                else if(escolha == 5) break;
+                else if(escolha == 5){
+                    system("cls");
+                    break;
+                }
             }
         }
         
         else{
             if(quantidade_passageiros(todos_passageiros) > 0){
+                system("cls");
                 Voo atual;
                 L_LIST passageiros;
                 Pessoa pessoa;
@@ -242,15 +254,17 @@ void mostra_menu(){
                             printf("Sexo: %s\n", pega_sexo(pessoa));
                         }
                     }
-
                 }
+                Sleep(10000);
+                system("cls");
             }
             else{
+                system("cls");
                 printf("SEM PASSAGEIROS NO MOMENTO\n");
 
             }
         }
-
+        vez++;
     }
     
 }
