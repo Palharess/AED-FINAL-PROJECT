@@ -4,6 +4,59 @@
 #include "menu.hpp"
 #include <windows.h>
 
+#define MAX_TAMANHO_LINHA 1000
+#define MAX_PALAVRAS 50
+
+void xereca_dados(L_LIST todos_passageiros, Voo * voos){
+    //nome,cpf,rg,n,s,v,l,c
+    FILE *arquivo;
+    char linha[MAX_TAMANHO_LINHA];
+    char *palavras[MAX_PALAVRAS];
+    int numPalavras;
+
+    arquivo = fopen("arquivo.txt", "r");
+
+    while (fgets(linha, sizeof(linha), arquivo) != NULL) {
+        Pessoa add;
+        Voo achou;
+        // Substituir o caractere de nova linha por um caractere nulo
+        linha[strcspn(linha, "\n")] = '\0';
+
+        // Inicializar variáveis
+        numPalavras = 0;
+
+        // Obter a primeira palavra
+        char *token = strtok(linha, " ");
+
+        // Processar as palavras restantes
+        while (token != NULL && numPalavras < MAX_PALAVRAS) {
+            palavras[numPalavras] = strdup(token);  // alocar memória e copiar a palavra
+            numPalavras++;
+
+            token = strtok(NULL, " ");
+        }
+
+        // Imprimir as palavras (ou você pode fazer o que quiser com elas)
+        
+        add = cria_pessoa(palavras[1], palavras[0], palavras[3], palavras[2], palavras[4]);
+        escolher_voo(add, palavras[5]);
+        
+        escolher_assento(add,atoi(&palavras[6][0]), atoi(&palavras[7][0]));
+       
+        insere_lista(todos_passageiros, add);
+
+
+        achou = identifica_voo_cidade(voos, pega_voo(add));
+        
+        adiciona_passageiro(add, achou);
+
+
+    }
+
+    fclose(arquivo);
+
+
+}
 
 Pessoa acha_pessoa(L_LIST todos_passageiros){
     char nome[35];
@@ -22,6 +75,7 @@ Pessoa acha_pessoa(L_LIST todos_passageiros){
 }
 
 Pessoa cadastra_pessoa(L_LIST todos_passageiros){
+
     char cpf[12];
     char nome[30];
     char nascimento[12];
@@ -115,6 +169,12 @@ void compra_passagem(Pessoa atual, Voo * voos){
     adiciona_passageiro(atual, escolhido);
     system("cls");
     printf("Passagem comprada!\n");
+    //aq 
+    FILE *pont_arq;
+    pont_arq = fopen("arquivo.txt", "a");
+    fprintf(pont_arq, "%s %s %s %s %s %s %d %d\n", pega_nome(atual), pega_cpf(atual), pega_rg(atual), pega_nascimento(atual)
+    , pega_sexo(atual), pega_voo(atual),  pega_linha(atual), pega_coluna(atual));
+    fclose(pont_arq);
 
     Sleep(500);
 }
@@ -130,14 +190,15 @@ void end(Voo * voos, L_LIST todos_passageiros){
 }
 
 void mostra_menu(){
+
     int vez = 0;
     L_LIST todos_passageiros = cria_lista();
     Voo * voos = cria_todos_voos();
+    xereca_dados(todos_passageiros, voos);
     Pessoa atual;
     Voo achou_voo;
     int escolha;
     while(1){
-        if(vez == 0) system("cls");
         printf("BEM VINDO!!\n");
         printf("1) Reservar passagens\n");
         printf("2) Ver os passageiros\n");
