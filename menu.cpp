@@ -26,14 +26,14 @@ void xereca_dados(L_LIST todos_passageiros, Voo * voos){
         numPalavras = 0;
 
         // Obter a primeira palavra
-        char *token = strtok(linha, " ");
+        char *token = strtok(linha, ",");
 
         // Processar as palavras restantes
         while (token != NULL && numPalavras < MAX_PALAVRAS) {
             palavras[numPalavras] = strdup(token);  // alocar memória e copiar a palavra
             numPalavras++;
 
-            token = strtok(NULL, " ");
+            token = strtok(NULL, ",");
         }
 
         // Imprimir as palavras (ou você pode fazer o que quiser com elas)
@@ -172,7 +172,7 @@ void compra_passagem(Pessoa atual, Voo * voos){
     //aq 
     FILE *pont_arq;
     pont_arq = fopen("arquivo.txt", "a");
-    fprintf(pont_arq, "%s %s %s %s %s %s %d %d\n", pega_nome(atual), pega_cpf(atual), pega_rg(atual), pega_nascimento(atual)
+    fprintf(pont_arq, "%s,%s,%s,%s,%s,%s,%d,%d\n", pega_nome(atual), pega_cpf(atual), pega_rg(atual), pega_nascimento(atual)
     , pega_sexo(atual), pega_voo(atual),  pega_linha(atual), pega_coluna(atual));
     fclose(pont_arq);
 
