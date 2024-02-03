@@ -7,7 +7,7 @@
 #define MAX_TAMANHO_LINHA 1000
 #define MAX_PALAVRAS 50
 
-void xereca_dados(L_LIST todos_passageiros, Voo * voos){
+void checa_dados(L_LIST todos_passageiros, Voo * voos){
     //nome,cpf,rg,n,s,v,l,c
     FILE *arquivo;
     char linha[MAX_TAMANHO_LINHA];
@@ -185,7 +185,7 @@ void mostra_menu(){
     int vez = 0;
     L_LIST todos_passageiros = cria_lista();
     Voo * voos = cria_todos_voos();
-    xereca_dados(todos_passageiros, voos);
+    checa_dados(todos_passageiros, voos);
     Pessoa atual;
     Voo achou_voo;
     int escolha;
@@ -239,7 +239,7 @@ void mostra_menu(){
                         printf("Modelo do Aviao: %s\n",pega_modelo(pega_aviao(achou_voo)));
                         printf("Poltrona: %c%d\n",'a' + pega_linha(atual),pega_coluna(atual) + 1);
                         printf("\n");
-                        Sleep(10000);
+                        getchar();
                         system("cls");
                     }
                     else{
@@ -277,39 +277,44 @@ void mostra_menu(){
         else{
             if(quantidade_passageiros(todos_passageiros) > 0){
                 system("cls");
-                Voo atual;
+                char teste;
+                Voo v;
                 L_LIST passageiros;
                 Pessoa pessoa;
                 for(int i = 0; i < 3; i++){
-                    atual = voos[i];
+                    v = voos[i];
                     passageiros = pega_lista(voos[i]);
-                    if(quantidade_passageiros(pega_lista(atual)) == 0){
-                        printf("O VOO PARA %s NAO POSSUI PASSAGEIROS\n\n", pega_cidade(pega_aviao(atual)));
+                    if(quantidade_passageiros(pega_lista(v)) == 0){
+                        printf("O VOO PARA %s NAO POSSUI PASSAGEIROS\n\n", pega_cidade(pega_aviao(v)));
                         
                     }
                     else{
-                        L_NODE node = pega_head(passageiros);
+                        printf("%s:\n", pega_cidade(pega_aviao(v)));
                         int achou;
-                        for(int j = 0; j < quantidade_passageiros(pega_lista(atual)); j++){
+                        for(int j = 0; j < quantidade_passageiros(pega_lista(v)); j++){
+                            L_NODE node = pega_head(passageiros);
                             achou = j;
                             while(achou > 0){
                                 node = pega_next(node);
                                 achou--;
                             }
+
                             pessoa = pega_pessoa(node);
-                            printf("t: %s %s\n", pega_sexo(pessoa), pega_rg(pessoa));
-                            printf("%s:\n", pega_cidade(pega_aviao(atual)));
-                            printf("Passageiro %d:\n", j);
+                            printf("\nPassageiro %d:\n\n", j + 1);
                             printf("Nome: %s\n", pega_nome(pessoa));
                             printf("Cpf: %s\n", pega_cpf(pessoa));
                             printf("Nascimento: %s\n", pega_nascimento(pessoa));
                             printf("Rg: %s\n", pega_rg(pessoa));
                             printf("Sexo: %s\n", pega_sexo(pessoa));
+                            
                         }
                     }
+                    getchar();
+                    system("cls");
+                    
                 }
-                Sleep(10000);
-                system("cls");
+                
+                
             }
             else{
                 system("cls");

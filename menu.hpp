@@ -5,7 +5,7 @@
 
 
 void mostra_menu();
-void xereca_dados(L_LIST todos_passageiros, Voo * voos);
+void checa_dados(L_LIST todos_passageiros, Voo * voos);
 Pessoa cadastra_pessoa(L_LIST todos_passageiros);
 Pessoa acha_pessoa(L_LIST todos_passageiros);
 void compra_passagem(Pessoa atual, Voo * voos);
