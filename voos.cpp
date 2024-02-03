@@ -5,6 +5,8 @@
 #include "voos.hpp"
 #include <string.h>
 
+#define MAX_TAMANHO_LINHA 1000
+#define MAX_PALAVRAS 50
 
 struct voo{
     Aviao plane;
@@ -140,7 +142,7 @@ void altere_assento(Pessoa atual, Voo voo){
 
     }
 }
-void cancela_passagem(Pessoa atual, Voo voo){
+void cancela_passagem(Pessoa atual, Voo voo, L_LIST todos_passageiros){
     char resposta;
     int linha = pega_linha(atual), coluna = pega_coluna(atual);
     printf("Destino:%s\n",pega_cidade(pega_aviao(voo)));
@@ -156,6 +158,39 @@ void cancela_passagem(Pessoa atual, Voo voo){
         voo->restantes++;
         remove_lista_por_nome(voo->lista, pega_nome(atual));
         escolher_assento(atual, -1,-1);
+        FILE *arquivo;
+        FILE *temp;
+        char l[MAX_TAMANHO_LINHA];
+        char *palavras[MAX_PALAVRAS];
+        int numPalavras;
+
+        arquivo = fopen("arquivo.txt", "r");
+        temp = fopen("temp.txt", "w");
+
+        while (fgets(l, sizeof(l), arquivo) != NULL) {
+            l[strcspn(l, "\n")] = '\0';
+            numPalavras = 0;
+            char *token = strtok(l, ",");
+
+            while (token != NULL && numPalavras < MAX_PALAVRAS) {
+                palavras[numPalavras] = strdup(token);  
+                numPalavras++;
+                token = strtok(NULL, ",");
+            }
+            //nome,cpf,rg,n,s,v,l,c
+            if(strcmp(pega_nome(atual), palavras[0]) != 0){
+                int l = atoi(palavras[6]),c = atoi(palavras[7]);
+                fprintf(temp, "%s,%s,%s,%s,%s,%s,%d,%d\n", palavras[0], palavras[1], palavras[2], palavras[3]
+                    , palavras[4], palavras[5],  l, c);
+            }
+
+        }
+        mostra_lista(voo->lista);
+        mostra_lista(todos_passageiros);
+        fclose(arquivo);
+        fclose(temp);
+        remove("arquivo.txt");
+        rename("temp.txt", "arquivo.txt");
     }
 }
 

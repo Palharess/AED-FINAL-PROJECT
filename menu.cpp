@@ -19,25 +19,16 @@ void xereca_dados(L_LIST todos_passageiros, Voo * voos){
     while (fgets(linha, sizeof(linha), arquivo) != NULL) {
         Pessoa add;
         Voo achou;
-        // Substituir o caractere de nova linha por um caractere nulo
         linha[strcspn(linha, "\n")] = '\0';
-
-        // Inicializar variáveis
         numPalavras = 0;
-
-        // Obter a primeira palavra
         char *token = strtok(linha, ",");
 
-        // Processar as palavras restantes
         while (token != NULL && numPalavras < MAX_PALAVRAS) {
-            palavras[numPalavras] = strdup(token);  // alocar memória e copiar a palavra
+            palavras[numPalavras] = strdup(token);  
             numPalavras++;
-
             token = strtok(NULL, ",");
         }
 
-        // Imprimir as palavras (ou você pode fazer o que quiser com elas)
-        
         add = cria_pessoa(palavras[1], palavras[0], palavras[3], palavras[2], palavras[4]);
         escolher_voo(add, palavras[5]);
         
@@ -269,7 +260,7 @@ void mostra_menu(){
                 else if(escolha == 4){
                     system("cls");
                     if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
-                        cancela_passagem(atual, acha_voo_nome(voos, pega_voo(atual)));
+                        cancela_passagem(atual, acha_voo_nome(voos, pega_voo(atual)), todos_passageiros);
                     }
                     else{
                         system("cls");
