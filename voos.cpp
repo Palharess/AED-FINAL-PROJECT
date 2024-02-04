@@ -70,16 +70,17 @@ int verifica_assento(Voo voo, int linha, int coluna){
 }
 void mostra_assento(Voo voo){
     char fileira = 'a';
-    printf("  1 2 3 4\n");
+    char a;
+    cout<<VERMELHO<<"  1 2 3 4\n";
     for(int i = 0; i < 10; i++){
-        printf("%c ", fileira + i);
+        a=fileira + i;
+        cout<<CIANO<<a<< LIMPA<<" ";
         for(int j = 0; j < 4; j++){
-            printf("%d ", voo->lugares[i][j]);
+            cout<<voo->lugares[i][j]<<" ";
         }
-        printf("\n");
+        cout<<"\n";
     }
 }
-
 Aviao pega_aviao(Voo voo){
     return voo->plane;
 }

@@ -98,9 +98,9 @@ Pessoa cadastra_pessoa(L_LIST todos_passageiros){
 Voo * cria_todos_voos(){
     Voo rj,sp,bra;
     Voo *voos = (Voo*) malloc(sizeof(3*sizeof(Voo)));
-    rj = cria_voo(cria_aviao("Bong", "16/01/2024", "Rio de Janeiro", "Congonhas"));
-    sp = cria_voo(cria_aviao("Bong", "18/01/2024", "Sao Paulo", "Congonhas"));
-    bra = cria_voo(cria_aviao("Bong", "25/01/2024", "Brasilia", "Congonhas"));
+    rj = cria_voo(cria_aviao("Embraer ERJ140", "16/02/2024", "Rio de Janeiro", "Galeão"));
+    sp = cria_voo(cria_aviao("Embraer E170", "18/02/2024", "Sao Paulo", "Congonhas"));
+    bra = cria_voo(cria_aviao("Airbus A318 ", "25/02/2024", "Brasilia", "Presidente JK"));
     voos[0] = rj;
     voos[1] = sp;
     voos[2] = bra;
@@ -118,14 +118,17 @@ Voo identifica_voo_cidade(Voo * voos, char * cidade){
 
 
 void mostra_voos(Voo * voos){
-    printf("Voos disponiveis:\n");
+    int a;
+    // printf("Voos disponiveis:\n");
+    cout<<VERMELHO<<"Voos disponiveis:\n\n";
     for(int i = 0; i < 3;i++){
-        printf("%d-%s\n",i + 1,pega_cidade(pega_aviao(voos[i])));
-        printf("Data da ida: %s\n",pega_data_ida(pega_aviao(voos[i])));
-        printf("Aeroporto: %s\n",pega_aeroporto(pega_aviao(voos[i])));
-        printf("Modelo do Aviao: %s\n",pega_modelo(pega_aviao(voos[i])));
-        printf("Lugares Restantes: %d\n", pega_restantes(voos[i]));
-        printf("\n");
+        a = i+1;
+        cout<<CIANO<<a<<LIMPA<<"-"<<VERMELHO<<pega_cidade(pega_aviao(voos[i]))<<"\n";
+        cout<<CIANO<<"Data de ida: "<<LIMPA<< pega_data_ida(pega_aviao(voos[i]))<<"\n";
+        cout<<CIANO<<"Aeroporto: "<<LIMPA<< pega_aeroporto(pega_aviao(voos[i]))<<"\n";
+        cout<<CIANO<<"Modelo do Aviao: "<<LIMPA<< pega_modelo(pega_aviao(voos[i]))<<"\n";
+        cout<<CIANO<<"Lugares Restantes: "<<LIMPA<< pega_restantes(voos[i])<<"\n\n";
+
     }
 }
 
@@ -137,23 +140,23 @@ void compra_passagem(Pessoa atual, Voo * voos){
     Voo escolhido;
     system("cls");
     mostra_voos(voos);
-    printf("Digite a cidade destino do voo escolhido: ");
-    scanf("%[^\n]%*c", destino);
+    cout<<"Digite a cidade destino do voo escolhido: ";
+    scanf("%[^\n]%c", destino);
     escolhido = identifica_voo_cidade(voos, destino);
     system("cls");
-    printf("O voo escolhido foi: %s\n", pega_cidade(pega_aviao(escolhido)));
-    printf("Assentos:\n");
+    cout<<LIMPA<< "O voo escolhido foi "<< VERMELHO << pega_cidade(pega_aviao(escolhido))<< "\n" ;
+    cout<<VERMELHO<<"Assentos:"<<"\n";
     mostra_assento(escolhido);
-    printf("Escolha um assento (ex: g4): ");
-    scanf("%c%d%*c", &fileira, &coluna);
+    cout<<LIMPA<<"Escolha um assento (ex: "<< VERMELHO<<"g4"<<LIMPA<<"): "; 
+    scanf("%c%d%c", &fileira, &coluna);
     coluna--;
     fila = (fileira - 'a');
     while(1){
         if(verifica_assento(escolhido, fila,coluna) == 0){
             break;
         }
-        printf("Esse assento esta ocupado, escolha outro: ");
-        scanf("%c%d%*c", &fileira, &coluna);
+        cout<<AZUL<<"Esse assento esta ocupado, escolha outro: "<<LIMPA;
+        scanf("%c%d%c", &fileira, &coluna);
         coluna--;
         fila = (fileira - 'a');
     }
@@ -161,15 +164,13 @@ void compra_passagem(Pessoa atual, Voo * voos){
     escolher_voo(atual, pega_cidade(pega_aviao(escolhido)));
     adiciona_passageiro(atual, escolhido);
     system("cls");
-    printf("Passagem comprada!\n");
-    //aq 
-    FILE *pont_arq;
+    cout << AZUL << "PASSAGEM COMPRADA!\n " << LIMPA "\n";
+    FILE * pont_arq;
     pont_arq = fopen("arquivo.txt", "a");
     fprintf(pont_arq, "%s,%s,%s,%s,%s,%s,%d,%d\n", pega_nome(atual), pega_cpf(atual), pega_rg(atual), pega_nascimento(atual)
     , pega_sexo(atual), pega_voo(atual),  pega_linha(atual), pega_coluna(atual));
     fclose(pont_arq);
 
-    Sleep(500);
 }
 
 void end(Voo * voos, L_LIST todos_passageiros){
@@ -284,10 +285,11 @@ void mostra_menu(){
                     v = voos[i];
                     passageiros = pega_lista(voos[i]);
                     if(quantidade_passageiros(pega_lista(v)) == 0){
-                        cout << "O VOO PARA " << VERMELHO <<pega_cidade(pega_aviao(v)) << LIMPA << " NAO POSSUI PASSAGEIROS" << "\n\n";
+                        printf("O VOO PARA %s NAO POSSUI PASSAGEIROS\n\n", pega_cidade(pega_aviao(v)));
+                        
                     }
                     else{
-                        cout << VERMELHO << pega_cidade(pega_aviao(v)) << ":" "\n\n";
+                        printf("%s:\n", pega_cidade(pega_aviao(v)));
                         int achou;
                         for(int j = 0; j < quantidade_passageiros(pega_lista(v)); j++){
                             L_NODE node = pega_head(passageiros);
@@ -298,12 +300,12 @@ void mostra_menu(){
                             }
 
                             pessoa = pega_pessoa(node);
-                            cout << CIANO << "\nPassageiro: " << LIMPA << j + 1<<"\n\n";
-                            cout << CIANO << "Nome: " << LIMPA << pega_nome(pessoa) << "\n";
-                            cout << CIANO << "Cpf: " << LIMPA << pega_cpf(pessoa) <<"\n";
-                            cout << CIANO << "Nascimento: " << LIMPA << pega_nascimento(pessoa) <<"\n";
-                            cout << CIANO << "Rg: " << LIMPA << pega_rg(pessoa) <<"\n";
-                            cout << CIANO << "Sexo: " << LIMPA << pega_sexo(pessoa) <<"\n";
+                            printf("\nPassageiro %d:\n\n", j + 1);
+                            printf("Nome: %s\n", pega_nome(pessoa));
+                            printf("Cpf: %s\n", pega_cpf(pessoa));
+                            printf("Nascimento: %s\n", pega_nascimento(pessoa));
+                            printf("Rg: %s\n", pega_rg(pessoa));
+                            printf("Sexo: %s\n", pega_sexo(pessoa));
                             
                         }
                     }
@@ -316,7 +318,7 @@ void mostra_menu(){
             }
             else{
                 system("cls");
-                cout << AZUL << "SEM PASSAGEIROS NO MOMENTO" << LIMPA <<"\n";
+                printf("SEM PASSAGEIROS NO MOMENTO\n");
 
             }
         }
