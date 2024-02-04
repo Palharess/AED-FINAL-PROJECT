@@ -3,9 +3,11 @@
 #include <string.h>
 #include "menu.hpp"
 #include <windows.h>
+#include <iostream>
 
 #define MAX_TAMANHO_LINHA 1000
 #define MAX_PALAVRAS 50
+using namespace std;
 
 void checa_dados(L_LIST todos_passageiros, Voo * voos){
     //nome,cpf,rg,n,s,v,l,c
@@ -74,20 +76,20 @@ Pessoa cadastra_pessoa(L_LIST todos_passageiros){
     char sexo[30];
 
     printf("Insira seus dados para continuar\n");
-    printf("Nome: ");
+    cout << CIANO << "Nome: " << LIMPA;
     scanf("%[^\n]%*c", nome);
-    printf("Cpf: ");
+    cout << CIANO << "Cpf: " << LIMPA;
     scanf("%s%*c", cpf);
-    printf("Data de Nascimento (Ex: 01/04/2005): ");
+    cout << CIANO << "Data de Nascimento: " << LIMPA;
     scanf("%s%*c", nascimento);
-    printf("Rg: ");
+    cout << CIANO << "Rg: " << LIMPA;
     scanf("%s%*c", rg);
-    printf("Sexo: ");
+    cout << CIANO << "Sexo: " << LIMPA;
     scanf("%s%*c", sexo);
     Pessoa pessoa = cria_pessoa(cpf,nome,nascimento,rg,sexo);
     insere_lista(todos_passageiros, pessoa);
     system("cls");
-    printf("Voce foi cadastrado!\n");
+    cout << AZUL << "Voce foi cadastrado!\n" << LIMPA;
     // printf("%s\n", pega_nome(pessoa));
     // printf("%s\n", pega_nome(pega_pessoa(pega_head(todos_passageiros))));
     return pessoa;
@@ -190,16 +192,15 @@ void mostra_menu(){
     Voo achou_voo;
     int escolha;
     while(1){
-        printf("BEM VINDO!!\n");
-        printf("1) Reservar passagens\n");
-        printf("2) Ver os passageiros\n");
+        cout << VERMELHO << "BEM VINDO!"  << "\n\n";
+        cout << CIANO << "1)" << LIMPA <<" Reservar Passagens\n";
+        cout << CIANO << "2)" << LIMPA <<" Ver Passageiros\n";
         scanf("%d%*c", &escolha);
         if(escolha == 1){
             system("cls");
-            printf("RESERVE SUAS PASSAGENS\n");
-
-            printf("Ja possui cadastro? (Escreva 1 para sim ou 2 para nao)\n");
-            printf("END (3)\n");
+            cout << VERMELHO << "RESERVE SUAS PASSAGENS!"  << "\n\n";
+            // Ja possui cadastro? (Escreva 1 para sim ou 2 para nao
+            cout << CIANO << "Ja possui cadastro?"  << LIMPA << " (Escreva" <<VERMELHO<<" 1 "<< LIMPA<< "para sim ou "<< VERMELHO<<"2 "<< LIMPA<<"para nao)"<<"\n";
             scanf("%d%*c", &escolha);
             system("cls");
             if(escolha == 2){
@@ -212,19 +213,17 @@ void mostra_menu(){
                 end(voos,todos_passageiros);
             }
             while(1){
-                
-                printf("BEM VINDO %s!\n", pega_nome(atual));
-                printf("DIGITE N-N PARA ESCOLHER O QUE FAZER\n");
-                printf("1) COMPRE SUA PASSAGEM\n");
-                printf("2) VISUALIZE SUA VIAGEM\n");
-                printf("3) ALTERE SEU ASSENTO\n");
-                printf("4) CANCELE SUA VIAGEM\n");
-
-                printf("5) LOGOUT\n");
+                cout << VERMELHO << "BEM VINDO "  << AZUL << pega_nome(atual) <<VERMELHO<<"!"<<LIMPA<<"\n";
+                cout << LIMPA << "DIGITE" << VERMELHO <<" 1-5" <<LIMPA << " PARA ESCOLHER O QUE FAZER " << "\n";
+                cout << CIANO << "1) " << LIMPA <<"COMPRE SUA PASSAGEM\n";
+                cout << CIANO << "2) " << LIMPA <<"VISUALIZE SUA VIAGEM\n";
+                cout << CIANO << "3) " << LIMPA <<"ALTERE SEU ASSENTO\n";
+                cout << CIANO << "4) " << LIMPA <<"CANCELE SUA VIAGEM\n";
+                cout << CIANO << "5) " << LIMPA <<"LOGOUT\n";
                 scanf("%d%*c", &escolha);
                 if(escolha == 1 && pega_linha(atual) != -1 && pega_coluna(atual) != -1){
                     system("cls");
-                    printf("Voce ja possui uma passagem!\n");
+                    cout << AZUL << "Voce ja possui uma passagem" <<"\n\n";
                 }
                 else if(escolha == 1){
                     compra_passagem(atual,voos);
@@ -232,13 +231,13 @@ void mostra_menu(){
                 else if(escolha == 2){
                     system("cls");
                     if(pega_linha(atual) != -1 && pega_coluna(atual) != -1){
+                        char esse = 'a' + pega_linha(atual);
                         achou_voo = acha_voo_nome(voos, pega_voo(atual));
-                        printf("Destino:%s\n",pega_cidade(pega_aviao(achou_voo)));
-                        printf("Data da ida: %s\n",pega_data_ida(pega_aviao(achou_voo)));
-                        printf("Aeroporto: %s\n",pega_aeroporto(pega_aviao(achou_voo)));
-                        printf("Modelo do Aviao: %s\n",pega_modelo(pega_aviao(achou_voo)));
-                        printf("Poltrona: %c%d\n",'a' + pega_linha(atual),pega_coluna(atual) + 1);
-                        printf("\n");
+                        cout << CIANO << "Destino: " << LIMPA << pega_cidade(pega_aviao(achou_voo)) <<"\n";
+                        cout << CIANO << "Data da ida: " << LIMPA << pega_data_ida(pega_aviao(achou_voo)) <<"\n";
+                        cout << CIANO << "Aeroporto: " << LIMPA << pega_aeroporto(pega_aviao(achou_voo)) <<"\n";
+                        cout << CIANO << "Modelo do Aviao: " << LIMPA << pega_modelo(pega_aviao(achou_voo)) <<"\n";
+                        cout << CIANO << "Poltrona: " << LIMPA << esse << pega_coluna(atual) + 1 <<"\n";
                         getchar();
                         system("cls");
                     }
@@ -285,11 +284,10 @@ void mostra_menu(){
                     v = voos[i];
                     passageiros = pega_lista(voos[i]);
                     if(quantidade_passageiros(pega_lista(v)) == 0){
-                        printf("O VOO PARA %s NAO POSSUI PASSAGEIROS\n\n", pega_cidade(pega_aviao(v)));
-                        
+                        cout << "O VOO PARA " << VERMELHO <<pega_cidade(pega_aviao(v)) << LIMPA << " NAO POSSUI PASSAGEIROS" << "\n\n";
                     }
                     else{
-                        printf("%s:\n", pega_cidade(pega_aviao(v)));
+                        cout << VERMELHO << pega_cidade(pega_aviao(v)) << ":" "\n\n";
                         int achou;
                         for(int j = 0; j < quantidade_passageiros(pega_lista(v)); j++){
                             L_NODE node = pega_head(passageiros);
@@ -300,12 +298,12 @@ void mostra_menu(){
                             }
 
                             pessoa = pega_pessoa(node);
-                            printf("\nPassageiro %d:\n\n", j + 1);
-                            printf("Nome: %s\n", pega_nome(pessoa));
-                            printf("Cpf: %s\n", pega_cpf(pessoa));
-                            printf("Nascimento: %s\n", pega_nascimento(pessoa));
-                            printf("Rg: %s\n", pega_rg(pessoa));
-                            printf("Sexo: %s\n", pega_sexo(pessoa));
+                            cout << CIANO << "\nPassageiro: " << LIMPA << j + 1<<"\n\n";
+                            cout << CIANO << "Nome: " << LIMPA << pega_nome(pessoa) << "\n";
+                            cout << CIANO << "Cpf: " << LIMPA << pega_cpf(pessoa) <<"\n";
+                            cout << CIANO << "Nascimento: " << LIMPA << pega_nascimento(pessoa) <<"\n";
+                            cout << CIANO << "Rg: " << LIMPA << pega_rg(pessoa) <<"\n";
+                            cout << CIANO << "Sexo: " << LIMPA << pega_sexo(pessoa) <<"\n";
                             
                         }
                     }
@@ -318,7 +316,7 @@ void mostra_menu(){
             }
             else{
                 system("cls");
-                printf("SEM PASSAGEIROS NO MOMENTO\n");
+                cout << AZUL << "SEM PASSAGEIROS NO MOMENTO" << LIMPA <<"\n";
 
             }
         }

@@ -4,9 +4,12 @@
 #include <stdlib.h>
 #include "voos.hpp"
 #include <string.h>
+#include <iostream>
 
 #define MAX_TAMANHO_LINHA 1000
 #define MAX_PALAVRAS 50
+using namespace std;
+
 
 struct voo{
     Aviao plane;
@@ -179,15 +182,21 @@ void altere_assento(Pessoa atual, Voo voo){
     }
 }
 void cancela_passagem(Pessoa atual, Voo voo, L_LIST todos_passageiros){
-    char resposta;
+
+    char resposta, esse = 'a' + pega_linha(atual);
     int linha = pega_linha(atual), coluna = pega_coluna(atual);
-    printf("Destino:%s\n",pega_cidade(pega_aviao(voo)));
-    printf("Data da ida: %s\n",pega_data_ida(pega_aviao(voo)));
-    printf("Aeroporto: %s\n",pega_aeroporto(pega_aviao(voo)));
-    printf("Modelo do Aviao: %s\n",pega_modelo(pega_aviao(voo)));
-    printf("Poltrona: %c%d\n",'a' + pega_linha(atual),pega_coluna(atual) + 1);
+    cout << CIANO << "Destino: " << LIMPA << pega_cidade(pega_aviao(voo)) <<"\n";
+    cout << CIANO << "Data da ida: " << LIMPA << pega_data_ida(pega_aviao(voo)) <<"\n";
+    cout << CIANO << "Aeroporto: " << LIMPA << pega_aeroporto(pega_aviao(voo)) <<"\n";
+    cout << CIANO << "Modelo do Aviao: " << LIMPA << pega_modelo(pega_aviao(voo)) <<"\n";
+    cout << CIANO << "Poltrona: " << LIMPA << esse << pega_coluna(atual) + 1 <<"\n";
+    // printf("Destino:%s\n",pega_cidade(pega_aviao(voo)));
+    // printf("Data da ida: %s\n",pega_data_ida(pega_aviao(voo)));
+    // printf("Aeroporto: %s\n",pega_aeroporto(pega_aviao(voo)));
+    // printf("Modelo do Aviao: %s\n",pega_modelo(pega_aviao(voo)));
+    // printf("Poltrona: %c%d\n",'a' + pega_linha(atual),pega_coluna(atual) + 1);
     printf("\n");
-    printf("Deseja cancelar sua passagem? (S/N) ");
+    cout <<"Deseja cancelar sua passagem?" << VERMELHO<<" (S/N) "  << LIMPA;
     scanf("%c%*c", &resposta);
     if(resposta == 'S'){
         voo->lugares[linha][coluna] = 0;
