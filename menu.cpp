@@ -141,14 +141,14 @@ void compra_passagem(Pessoa atual, Voo * voos){
     system("cls");
     mostra_voos(voos);
     cout<<"Digite a cidade destino do voo escolhido: ";
-    scanf("%[^\n]%c", destino);
+    scanf("%[^\n]%*c", destino);
     escolhido = identifica_voo_cidade(voos, destino);
     system("cls");
     cout<<LIMPA<< "O voo escolhido foi "<< VERMELHO << pega_cidade(pega_aviao(escolhido))<< "\n" ;
     cout<<VERMELHO<<"Assentos:"<<"\n";
     mostra_assento(escolhido);
     cout<<LIMPA<<"Escolha um assento (ex: "<< VERMELHO<<"g4"<<LIMPA<<"): "; 
-    scanf("%c%d%c", &fileira, &coluna);
+    scanf("%c%d%*c", &fileira, &coluna);
     coluna--;
     fila = (fileira - 'a');
     while(1){
@@ -156,7 +156,7 @@ void compra_passagem(Pessoa atual, Voo * voos){
             break;
         }
         cout<<AZUL<<"Esse assento esta ocupado, escolha outro: "<<LIMPA;
-        scanf("%c%d%c", &fileira, &coluna);
+        scanf("%c%d%*c", &fileira, &coluna);
         coluna--;
         fila = (fileira - 'a');
     }
